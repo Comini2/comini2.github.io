@@ -1,345 +1,275 @@
 $(document).ready(function(){
 
-	var n = 3;
-	var matriz = [];
-	var b = [];
-	var xIni = [];
-	var x = [];
-
-	$('.par').hide();
-	$('.align.op').hide();
-
-	var $div_m = $('#matriz');
-
-	desenhaSistema();
-
-	for(var i = 0; i<10; i++){
-		matriz[i] = [];
-		b[i] = 0;
-		for(var j = 0; j<10; j++){
-			matriz[i][j] = 0;
-		}
+	var mets  = ['_bis', '_cordas', '_newton', '_cordas_m', '_newton_m'];
+	var mets_n = ['da Bissecção', 'das Cordas', 'de Newton', 'das Cordas Modificado', 'de Newton Modificado'];
+	
+	for(var i = 0, len = mets.length; i < len; i++){
+		$('body').append('<div class="container-fluid bg-2" id="header' + mets[i] + '"><span role="button"><span class="caret"></span> Método '+ mets_n[i] + '</span></div>');
+		var container = $('<div class="collapse container-fluid bg-3" id="container' + mets[i] + '"></div>');
+		container.append('<div style="float:left; padding-right: 20px"><h4>Insira a função:</h4><label>f(x): </label><input type="text" name="function' + mets[i] + '" size="50"></div>');
+		container.append('<div style="float:left; padding-right: 40px"><h4>Insira o intervalo (a, b):</h4><label>a :</label><input type="text" name="a' + mets[i] +'" size="1" style="margin-right: 10px;"><label>b :</label><input type="text" name="b' + mets[i]+'" size="1"></div>');
+		container.append('<div style="float:left; padding-right: 40px"><h4>Insira a tolerância:</h4><label>&epsilon; :</label><input type="text" name="epsilon' + mets[i]+'" size="8" style="margin-right: 10px;"></div>');
+		container.append('<div style="float:left; padding-right: 20px"><h4>Insira o número de iterações*:</h4><input type="text" name="maxit' + mets[i]+'" size="8" style="margin-right: 10px;"></div>');
+		container.append('<br><br><br><div id = "erros' + mets[i] +'"></div><div id="result' + mets[i]+'" style="width: 50%; float: left;"></div><div style="width: 50%; float: right;" id="plot' + mets[i]+'"></div>');
+		container.append('<button id="calc' + mets[i]+'" class="btn calc">Calcular raízes</button><button id="clean' + mets[i]+'" class="btn clean">Limpar</button>');
+		container.append('<h5>*Se o número de iterações não for definido, este será definido como 15.<h5>');
+		$('body').append(container);
 	}
+	$('body').append('<footer class="container-fluid bg-4 text-center"><p>Este site foi projetado e desenvolvido por João Comini</a></p></footer>');
 
-	$('.cell').val(0);
-	$('.cell.m').addClass('zero');
 
-	$('#ordem').val(n);
-	$('#maxIt').val(10);
-	$('#erro').val(0.001);
+	$('.nav_drop').click(function(){
+		if (this.hash !== "") {
+	
+			$header = $(this.hash);
+			console.log(this.hash);
 
-	$('#calcula').click(function(){
+			var met = this.hash.substring(this.hash.search('_'));
 
-		attValores();
+			var container = '#container'+met;
 
-		console.log(matriz);
+	    	$content = $(container);
+	   		
+	   		if(!$content.is(':visible')){
 
-		$('.border-bot').show();
-		$('.col-sm-12').show();
-		$('.par').show();
-		$('.align.op').show();
-		$('#matriz_esc').empty();
+		    	$content.collapse('show');
 
-		$('#x_final').empty();
-		$('#b_final').empty();
-		$('#resumo').empty();
+				  $('html, body').animate({
+				    scrollTop: $header.offset().top - 50
+				  }, 800, function(){
 
-		switch($('input[name="metodo"]:checked').val()){
-			case 'gauss':
-				x = gauss(matriz, b, n);
-				break;
-			case 'gausspp':
-				alert('TODO');
-				//TODO
-				break;
-			case 'gausspt':
-				alert('TODO');
-				//TODO
-				break;
-			case 'gausscmp':
-				alert('TODO');
-				//TODO
-				break;
-			case 'dlu':
-				alert('TODO');
-				//TODO
-				break;
-			case 'cholesky':
-				//TODO
-				ehSimetrico (matriz, n) ? x = cholesky (matriz, n, b) : alert ('A matriz inserida não é simétrica.');
-				break;
-			case '_jacobi':
-				alert('TODO');
-				//TODO
-				break;
-			case '_gauss':
-				alert('TODO');
-				break;
+				  });
+	    	}else{
+
+				$('html, body').animate({
+					scrollTop: $header.offset().top - 50
+				  
+				}, 800, function(){
+
+				});
+	    	}
+	    		
 		}
-
-		
-		for (var i = 0; i < n; i++){
-			for(var j = 0; j<n; j++)
-				$('#matriz_esc').append('<label class="result">' + matriz[i][j] + '</label>');
-
-			$('#matriz_esc').append('<br>');
-			$('#x_final').append('<label class="result">' + x[i].toFixed(3) + '</label><br>');
-			$('#b_final').append('<label class="result">' + b[i].toFixed(3) + '</label><br>');
-			$('#resumo').append('<label class="resumo">x<sub>' + (i+1) + '</sub>= &nbsp;' + x[i] + '</label><br>');
-		}
-
-		$('#container_resultado').addClass('border-bot');
-
-		$('img').height($('#matriz_esc').height());
-		$('.align.op').css('padding-top', $('#matriz_esc').height()/2 - $('.align.op').height()/2);
-
-		$('html, body').animate({scrollTop: $('.col-sm-12.bot').offset().top}, 800);
-
 	});
 
-	$('.cell.m').keyup(function(){
-			($(this).val() !== 0) ? $(this).removeClass('zero') : $(this).addClass('zero');
+	$('.bg-2').click(function(){
+
+		var id = $(this).attr('id');
+		var met = id.substring(id.search('_'));
+
+		$content = $('#container'+met);
+
+		if(!$content.is(':visible')){
+
+		    	$content.collapse('show');
+
+				$('html, body').animate({
+					scrollTop: $(this).offset().top - 50
+				}, 800, function(){
+
+				});
+	    	}
+	    	else
+	    		$content.collapse('hide');
 	});
 
+	$('.btn.clean').click(function(){
+		var id = $(this).attr('id');
+		var met = id.substring(id.search('_'));
+		var $result = $('#result' + met);
+		var $plot = $('#plot' + met);
+		var $erros = $('#erros' + met);
 
-	$('#ordem').focus(function(){
-			$(this).select();
-	});
-	$('#maxIt').focus(function(){
-			$(this).select();
-	});
-	$('#erro').focus(function(){
-			$(this).select();
-	});
+		$result.empty();
+		$plot.empty();
+		$erros.empty();
 
-	$('#limpa').click(function(){
-		$('.cell').val(0);
-		$('.cell.m').addClass('zero');
-	});
-
-	$('#limpa_sol').click(function(){
-		$('#resumo').empty();
-		$('.par').hide();
-		$('.align.op').hide();
-		$('#matriz_esc').empty();
-		$('#resultado h3').remove();
-
-		$('#x_final').empty();
-		$('#b_final').empty();
-	})
-
-	$('input[name="metodo"]').click(function(){
-		desenhaXinicial();
-	});
-
-
-	$('#ordem').keyup(function(){
-
-		n = !isNaN($(this).val()) ? parseInt($(this).val()) : n;
-
-		if(n > 10){
-			n = 10;
-			$(this).val(n);
-		}else if(n<=0){
-			n = 3;
-			$(this).val(n);
-		}else if(!isNaN(n))
-			$(this).val(n);
-
-		desenhaSistema();
-
-		for(var i = 0; i<n; i++){
-			for(var j=0; j<n; j++){
-				var $input = $('input[name="m'+i+','+j+'"]');
-
-				if(matriz[i][j] === 0)
-					$input.addClass('zero');
-
-				$input.val(matriz[i][j]);
+		$('input.error').each(function(){
+			if($(this).attr('name').search(met) !== -1){
+				$(this).removeClass('error');
 			}
-		}
-
-		for(var i = 0; i<n; i++){
-			$('input[name="b'+i+'"]').val(b[i]);
-		}
-
-		$('.cell').focus(function(){
-			$(this).select();
+		});
+		$('input').each(function(){
+			if($(this).attr('name').search(met) !== -1){
+				$(this).val('');
+			}
 		});
 
 	});
 
-	$('.cell').focus(function(){
-			$(this).select();
-	});
+	$('.btn.calc').click(function(e){
 
-function attValores(){
+		var id = $(this).attr('id');
+		var met = id.substring(id.search('_'));
 
-	$('.cell.m').each(function(){
+		var container = '#container'+met;
 
-		var name = $(this).attr('name');
-		var indice = name.search(',');
+		$(container).addClass('loading');
+		$(container).fadeTo('fast', 0.4);
 
-		var j = name.substring(indice+1);
-		var i = name.substring(1, indice);
+		var a = 'a' + met;
+		var b = 'b' + met;
+		var f = 'function' + met;
+		var erro = 'epsilon' + met;
+		var maxIt = 'maxit' + met;
+		var result = '#result' + met;
+		var plot = '#plot' + met;
 
-		console.log(matriz[i][j]);
+		var $a = $('input[name=' + a +']');
+		var $b = $('input[name=' + b +']');
+		var $f = $('input[name=' + f +']');
+		var $erro = $('input[name=' + erro +']');
+		var $maxIt = $('input[name=' + maxIt +']');
+		var $erros = $('#erros' + met);
 
-		matriz[i][j] = !isNaN($(this).val()) ? parseFloat($(this).val()) : 0;
-	});
+		$erros.empty();
 
-	$('.cell.b').each(function(){
-		var name = $(this).attr('name');
-		var i = name.substring(1);
+		a = parseFloat($a.val());
+		b = parseFloat($b.val());
+		f = $f.val();
+		erro = parseFloat($erro.val());
+		maxIt = parseInt($maxIt.val());
 
-		b[i] = !isNaN($(this).val()) ? parseFloat($(this).val()) : 0;
-	});
-}
-
-function desenhaSistema(){
-
-	$div_m.empty();
-	$div_m.append('<img src="img/colchete.png" style="margin-right: 10px; float: left;" id="colchete">');
-
-	$table = $('<div class="box align"></div>');
-	for(var i = 0; i<n; i++){
-		$row = $('<div class="row-m"></div>');
-		for(var j = 0; j<n; j++){
-			if(j < n-1)
-				$row.append('<label for="cell"><input type="text" name="m'+i+','+j+'" class="cell m"><span>.x<sub>'+(j+1)+ '</sub>+</span></label>');
-			else{
-				$row.append('<label for="cell"><input type="text" name="m'+i+','+j+'" class="cell m"><span>.x<sub>'+(j+1)+ '</sub>=</span></label>');
-				$row.append('<label for="cell"><input type="text" name="b'+i+'" class="cell b"><span>(b<sub>' + (i+1) +' </sub>)</span></label>');
+		$('input.error').each(function(){
+			if($(this).attr('name').search(met) !== -1){
+				$(this).removeClass('error');
 			}
-			$table.append($row);
+		});
+
+		var ok = true;
+
+		if(f === ''){
+			$f.addClass('error');
+			ok = false;
+			$erros.append('<h6>*Função inválida!</h6>');
 		}
-		$div_m.append($table);
 
-		$('#colchete').height($('#colchete').next().height());
-	}
+		if(!$.isNumeric(a)){
+			$a.addClass('error');
+			ok = false;
+			$erros.append('<h6>*Valor inválido para "a".</h6>');
+		}
+		if(!$.isNumeric(b)){
+			$b.addClass('error');
+			ok = false;
+			$erros.append('<h6>*Valor inválido para "b".</h6>');
+		}
+		if(!$.isNumeric(erro)){
+			$erros.append('<h6>*Valor inválido para tolerância.</h6>');
+			$erro.addClass('error');
+			ok = false;
+		}else if(erro < 1e-6 || erro > 1e-2){
+			$erros.append('<h6>*A tolerância deve estar entre 1E-6 e 1E-2.</h6>');
+			$erro.addClass('error');
+			ok = false;
+		}
+		if(!$.isNumeric(maxIt) && !isNaN(maxIt)){
+			$erros.append('<h6>*Valor inválido para o número de iterações.</h6>');
+			$maxIt.addClass('error');
+			ok = false;
+		}else if(maxIt > 1000 || maxIt < 5){
+			$erros.append('<h6>*O número de iterações deve ser menor que 1000 e maior que 5.</h6>');
+			$erro.addClass('error');
+			ok = false;
+		}
 
-	desenhaXinicial();
-}
+		if(a > b){
+			$erros.append('<h6>*O intervalo deve ser crescente, ou seja, de "a" para "b", e.g (1, 3).');
+			$a.addClass('error');
+			$b.addClass('error');
+			ok = false;
+		}else if(b-a < 1){
+			$erros.append('<h6>*A distância do intervalo deve ser maior que 1.');
+			$a.addClass('error');
+			$b.addClass('error');
+			ok = false;
+		}
 
-function desenhaXinicial(){
-	if($('input[name="metodo"]:checked').val().search('_') !== -1 && !$('.cell.x').length){
-			for(var i = 0; i<n; i++){
-				$('input[name="b'+i+'"]').parent().after('<label for="cell">--><input type="text" name="xini'+i+'" class="cell x">(x<sub>ini' + (i+1) +' </sub>)</label>');
+		if(isNaN(maxIt));
+			maxIt = 15;
+
+		if(ok){
+
+			var worker = new Worker('js/worker.js')
+
+			var x = [];
+			var intervalos = [];
+
+			worker.onmessage = function(e){
+				var ferror = false;
+				try{
+					x = e.data[0];
+					intervalos = e.data[1];
+
+					$(result).empty();
+					
+					if(intervalos.length > 0){
+						$(result).append('Intervalos: </br>');
+						for(var i = 0, len = intervalos.length; i<len; i++){
+							$(result).append('(' + intervalos[i].a.toFixed(4) + ', ' +intervalos[i].b.toFixed(4) + ')');
+							if(i + 1<len)
+								$(result).append(' ,&nbsp;');
+						}
+						$(result).append('</br>');
+						$(result).append('Raízes: </br>');
+						for(var i = 0, len = x.length; i< len; i++){
+							$(result).append('X['+ (i+1) +'] &asymp; '+ x[i].toFixed(4));
+							if(i + 1<len)
+								$(result).append(' ,&nbsp;');
+						}
+					}else{
+						$(result).append('Não foram encontradas possíveis raízes neste intervalo.');
+					}
+
+					$(plot).empty();
+					$(plot).append('<p>Gráfico: </p>');
+
+					draw(f, plot);
+
+				}catch(err){
+					ok = false;
+					ferror = true;
+				}
+				$(container).removeClass('loading');
+				$(container).fadeTo('fast', 1);
+				
+				if(!ok){
+					$(result).empty();
+					$(plot).empty();
+				}
+				if(ferror){
+					$erros.append('<h6>*Aconteceu algo entranho com a função, tenha certeza de que ela está em função de x.<h6>');
+					$f.addClass('error');
+				}
 			}
-	}else if($('.cell.x').length && $('input[name="metodo"]:checked').val().search('_') === -1){
-			$('.cell.x').parent().remove();
-			$('.cell.x').remove();
-	}
-}
+
+			worker.postMessage([met, f, a, b, maxIt, erro]);
+		}
+
+		if(!ok){
+			$(container).removeClass('loading');
+			$(container).fadeTo('fast', 1);
+			$(result).empty();
+			$(plot).empty();
+		}
+
+	});
 
 });
 
-
-function gauss(matriz, b, n){
-
-	var x = [];
-	for(var j = 0; j<n-1; j++){
-		for(var i = j+1; i<n; i++){
-			m = matriz[i][j]/matriz[j][j];
-			for(var k = j; k<n; k++)
-				matriz[i][k] -= m*matriz[j][k];
-			b[i] -= b[j]*m;
-		}
-	}
-
-	x[n-1] = b[n-1]/matriz[n-1][n-1];
-
-	for(var i = n-2; i>=0; i--){
-		var soma = 0;
-		for(var j = i+1; j<n; j++){
-			soma += matriz[i][j]*x[j];
-		}
-		x[i] = (b[i]-soma)/matriz[i][i];
-	}
-
-	return x;
-}
-
-function ehSimetrico (matriz, n) {
-	for (var i = 0; i<n-1; i++)
-		for (var j = i+1; j<n; j++)
-			if (j !== i)
-				if (matriz[i][j] !== matriz[j][i])
-					return 0;
-	return 1;
-}
-
-function cholesky (matriz, n , b) {
-	var g = [];
-	var soma = 0;
-	var x = [];
-	var y = [];
-
-	for (var i = 0; i<n; i++)
-		g[i] = [];
-
-	//"Decomposição de A em G.GT"
-	for (var k = 0; k<n; k++) {
-		soma = 0;
-		for (var j = 0; j<k-1; j++)
-			soma += g[k][j];
-		try {
-			g[k][k] = Math.sqrt (matriz[k][k] - soma);
-		}catch (err) {
-			alert (err);
-		}
-
-		for (var i=k+1; i<n; i++) {
-			soma = 0;
-			for (var j=0; j< k-1; j++)
-				soma += g[i][j]*g[k][j]
-			g[i][k] = (matriz[i][k] - soma)/g[k][k];
-		}
-	}
-
-	console.log(g);
-
-	//"Preenchendo a GT"
-	for (var i=0; i< n-1; i++)
-		for (var j = i+1; j< n; j++)
-			g[i][j] = g[j][i]
-
-	//"Solução de G.y = b por Substituição"
-	try {
-		y[0] = b[0]/g[0][0];
-	}catch (err) {
-		alert ('algo deu errado na hora de montar o y');
-	}
-
-	for (var i = 1;i<n;i++) {
-		soma = 0;
-		for (var j = 0; j < i-1; j++)
-			soma += g[i][j]*y[j];
-		try {
-			y[i] = (b[i]-soma)/g[i][i];
-		}catch (err) {
-			alert ('algo deu errado na hora de montar o y');
-		}
-	}
-
-	//"Solução de GT.x = y por Retrosubstituição"
-	try {
-		x[n-1] = y[n-1]/g[n-1][n-1];
-	}catch (err) {
-		alert ('Algo deu errado na hora de montar o x');
-	}
-
-	for (var i = n-2; i >= 0; i--) {
-		soma = 0;
-		for (var j = i+1; j<n; j++)
-			soma += g[i][j]*x[j];
-		try {
-			x[i] = (y[i] - soma)/g[i][i];
-		}catch (err) {
-			alert ('Algo deu errado na hora de montar o x');
-		}
-	}
-
-	return x;
-}
-
+function draw(f, id) {
+    try {
+      functionPlot({
+        target: id,
+        data: [{
+          fn: f,
+          sampler: 'builtIn',
+          graphType: 'polyline'
+        }]
+      });
+    }
+    catch (err) {
+      console.log(err);
+      alert(err);
+    }
+  }

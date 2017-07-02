@@ -1,40 +1,98 @@
-function sistemaLinear(x, fx, n, n_pontos, k){
+function sistemaLinear(x, fx, n, z){
 	var m = [];
 	var y = [];
-	var a = [];
-
-	var cont = 0;
-	
-	for(var i = 0; i<n_pontos-1; i++){
-		for(var j = i+1; j<n_pontos; j++){
-			if(x[i] == x[j]){
-				x.splice(j, 1);
-				fx.splice(j, 1);
-				cont--;
-			}
-		}
-	}
-
-	n_pontos += cont;
-
-	if(n < n_pontos-1){
-
-		var clone_x = JSON.parse(JSON.stringify(x));
-		var clone_fx = JSON.parse(JSON.stringify(fx));
-
-
-	}
+	var f = "";
 
 	for(var i = 0; i<n+1; i++){
 		m[i] = [];
 
-		for(var j =0; j<n+1; j++){
+		for(var j =0; j<n+1; j++)
 			m[i][j] = Math.pow(x[i], j);
-		}
 		y[i] = fx[i];
 	}
 
-	return gauss(m, y, n+1);
+	var a = gauss(m, y, n+1);
+
+	for(var i = 0, len = a.length; i<len; i++){
+		if(a[i] === 0)
+			continue;
+
+		if(i<len-1)
+			f += a[i] !== 1 ? a[i] + "x^" + i + " +" : "x^" + i + " +";
+		else
+			f += a[i] !== 1 ? a[i] + "x^" + i + " +" : "x^" + i;
+	}
+
+	f = f[f.length-1] == '+' ? f.substring(0, f.length-1) : f;
+
+	return math.simplify(f).toString();
+}
+
+function newton(x, fx, n){
+
+	var y = [];
+	var f = "";
+
+	for(var i = 0; i<n+1; i++){
+
+		y[i] = [];
+		if(!i){
+			y[i] = fx;
+			continue;
+		}
+
+		for(var j = 0; j<n+1 - i; j++)
+			y[i][j] = (y[i-1][j+1] - y[i-1][j])/(x[i+j]-x[j]);
+	}
+
+	for(var i = 0; i<n+1; i++){
+		f+= y[i][0];
+		f+= i < n+1 - 1 ? " + (x -" + x[i] + ")*(" : "";
+	}
+
+	for(var i = 0; i<n+1 - 1; i++)
+		f+= ")";
+
+	return math.simplify(f).toString();
+}
+
+function nGregory(x, fx, n){
+
+	var y = [];
+	var f = "";
+
+	var h = Math.abs(x[0] - x[1]);
+
+	for(var i = 1; i<n+1 - 1; i++){
+		if(Math.abs(x[i] - x[i+1]) !== h)
+			return null;
+	}
+
+	for(var i = 0; i<n+1; i++){
+
+		y[i] = [];
+		if(!i){
+			y[i] = fx;
+			continue;
+		}
+
+		for(var j = 0; j<n+1 - i; j++)
+			y[i][j] = (y[i-1][j+1] - y[i-1][j]);
+	}
+
+	f+= y[0][0];
+	f+= " + (x -" + x[0] + ")*(";
+
+	for(var i = 1; i<n+1; i++){
+		f+= y[i][0]/(fact(i)*Math.pow(h, i));
+		f+= i < n+1 - 1 ? " + (x -" + x[i] + ")*(" : "";
+	}
+
+	for(var i = 0; i<n+1 - 1; i++)
+		f+= ")";
+
+	return math.simplify(f).toString();
+
 }
 
 function gauss(matriz, b, n){
@@ -60,4 +118,46 @@ function gauss(matriz, b, n){
 	}
 
 	return x;
+}
+
+function corrigeVetores(x, fx, z, n_pontos, n){
+
+	for(var i = 0; i<n_pontos-1; i++){
+		for(var j = i+1; j<n_pontos; j++){
+			if(x[i] == x[j]){
+				x.splice(j, 1);
+				fx.splice(j, 1);
+				n_pontos--;
+			}
+		}
+	}
+
+	if(n + 1 < n_pontos){
+		var ind;
+
+		var len = n_pontos - (n + 1);
+
+		for(var j = 0; j<len; j++){
+			var dist = -Infinity;
+			for(var i = 0; i<n_pontos; i++){
+				if(Math.abs(x[i] - z) > dist){
+					dist = Math.abs(x[i] - z);
+					ind = i;
+				}
+			}
+			fx.splice(ind, 1);
+			n_pontos--;
+		}
+	}
+
+	console.log(n_pontos);
+	
+	return n_pontos;
+}
+
+function fact(num){
+    var rval=1;
+    for (var i = 2; i <= num; i++)
+        rval = rval * i;
+    return rval;
 }

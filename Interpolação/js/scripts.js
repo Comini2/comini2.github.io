@@ -8,6 +8,7 @@ $(document).ready(function(){
 
 	$("#n_pontos").val(n_pontos);
 	$("#grau").val(n);
+	$("#ref").val(0);
 
 	for(var i = 0; i<15; i++){
 		x[i] = 0;
@@ -17,21 +18,25 @@ $(document).ready(function(){
 	atribuiValores();
 	atribuiCelulas();
 
+	draw("");
+
 	$("#n_pontos").keyup(function(){
 
 		n_pontos = !isNaN(parseInt($(this).val())) ? parseInt($(this).val()) : 0;
 
 		n_pontos = n_pontos>15 ? 15 : n_pontos;
 
-		n_pontos = n_pontos < n+1 ? n+1 : n_pontos;
+		n_pontos = n_pontos < 2 ? 2: n_pontos;
+
+		n = n_pontos < n+1 ? n_pontos - 1 : n; 
 
 		$(this).val(n_pontos);
 
 		atribuiValores();
-
 		desenhaTabela();
-
 		atribuiCelulas();
+
+		$("#grau").val(n);
 	});
 
 	$("#grau").keyup(function(){
@@ -44,32 +49,41 @@ $(document).ready(function(){
 		atribuiCelulas();
 
 		$("#n_pontos").val(n_pontos);
-	})
+	});
 
 	$("#calcula").click(function(){
 
+		n_pontos = !isNaN(parseInt($("#n_pontos").val())) ? parseInt($("#n_pontos").val()) : 0;
+		n = !isNaN(parseInt($("#grau").val())) ? parseInt($("#grau").val()) : 0;
+
 		atribuiValores();
 
-		var a = sistemaLinear(x, fx, n, n_pontos);
+		var z = !isNaN(parseFloat($("#ref").val())) ? parseFloat($("#ref").val()) : 0;
+
 		var f = "";
 
-		for(var i = 0, len = a.length; i<len; i++){
-			if(a[i] === 0)
-				continue;
+		var clone_x = JSON.parse(JSON.stringify(x));
+		var clone_fx = JSON.parse(JSON.stringify(fx));
 
-			if(i<len-1)
-				f += a[i] !== 1 ? a[i] + "x^" + i + "+" : "x^" + i + "+";
-			else
-				f += a[i] !== 1 ? a[i] + "x^" + i + "+" : "x^" + i;
+		n_pontos = corrigeVetores(clone_x, clone_fx, z, n_pontos, n);
+
+		console.log(n);
+
+		switch($('input[name="metodo"]:checked').val()){
+			case 'sistema':
+				f = sistemaLinear(clone_x, clone_fx, n, z);
+				break;
+			case 'newton':
+				f = newton(clone_x, clone_fx, n);
+				break;
+			case 'gregory':
+				f = nGregory(clone_x, clone_fx, n);
+				break;
 		}
-
-		if(f[f.length-1] == '+')
-			f = f.substring(0, f.length-1);
 
 		$("#polinomio").empty();
 		$("#polinomio").append("<p>f(x) = " + f + "</p>");
 
-		console.log(f);
 		draw(f);
 	});
 
@@ -83,7 +97,7 @@ $(document).ready(function(){
 		for(var i = 0; i<n_pontos; i++){
 			$('#fx').append('<input type="text" class="cell" name="fx'+ i +'"></input>');
 			$('#x').append('<input type="text" class="cell" name="x'+ i +'"></input>');
-			$('#indice').append('<label>' + (i+1) + '</label>');
+			$('#indice').append('<label>' + i + '</label>');
 		}
 	}
 

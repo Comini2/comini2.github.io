@@ -45,19 +45,22 @@
       <div class = "border-bot">
         <h3>Métodos</h3>
       </div>
-      <label><input type="radio" name="metodo" value="gauss" checked="true">&nbsp;Sistema Linear</label><br>
-      <label><input type="radio" name="metodo" value="gausspp">&nbsp;Newton</label><br>
-      <label><input type="radio" name="metodo" value="gausspt">&nbsp;Newton-Gregory</label><br>
+      <label><input type="radio" name="metodo" value="sistema" checked="true">&nbsp;Sistema Linear</label><br>
+      <label><input type="radio" name="metodo" value="newton">&nbsp;Newton</label><br>
+      <label><input type="radio" name="metodo" value="gregory">&nbsp;Newton-Gregory</label><br>
     </div>
     <div class = "col-sm-9">
       <div class ="border-bot">
         <h3>Entrada</h3>
       </div>
-      <div class="col-sm-5">
-        <label for="vals">Nº de pontos: <input type="text" id="n_pontos" class="vals" "></label><br>
-        <label for="vals">Ponto de Referência: <input type="text" id="ref" class="vals""></label><br>
-        <label for="vals">Grau do polinômio: <input type="text" id="grau" class="vals" "></label><br>
+      <div class="row">
+        <div class="col-sm-5">
+          <label for="vals">Grau do polinômio: <input type="text" id="grau" class="vals" "></label><br>
+          <label for="vals">Nº de pontos: <input type="text" id="n_pontos" class="vals" "></label><br>
+          <label for="vals">Ponto de Referência*: <input type="text" id="ref" class="vals""></label><br>
+        </div>
       </div>
+      <h6>*Este é apenas utilizado caso o nº de pontos seja maior que o grau do polinômio + 1 (n + 1). Se não definido, este será dado como 0.</h6>
       <button class="btn btn-primary" id="calcula">Calcular</button>
     </div>
   </div>
@@ -65,37 +68,38 @@
   <div class="row">
 
     <div class = "col-sm-3">
+
       <div class = "border-bot">
-        <h3>Pontos</h3>
+          <h3>Pontos</h3>
       </div>
+      <div class="row">
+        <div class = "col-sm-2" >
+          <h4 class="border-bot">i</h4>
+          <div id="indice">
+            <label>0</label>
+            <label>1</label>
+            <label>2</label>
+          </div>
+        </div>
 
-      <div class = "col-sm-2" >
-        <h4 class="border-bot">i</h4>
-        <div id="indice">
-          <label>1</label>
-          <label>2</label>
-          <label>3</label>
+        <div class = "col-sm-5">
+          <h4 class="border-bot">x[i]</h4>
+           <div id = "x">
+            <input type="text" class="cell" name="x0"></input>
+            <input type="text" class="cell" name="x1"></input>
+            <input type="text" class="cell" name="x2"></input>
+          </div>
+        </div>
+        
+        <div class = "col-sm-5">
+          <h4 class="border-bot">f(x[i])</h4>
+          <div id="fx">
+            <input type="text" class="cell" name="fx0"></input>
+            <input type="text" class="cell" name="fx1"></input>
+            <input type="text" class="cell" name="fx2"></input>
+          </div>
         </div>
       </div>
-
-      <div class = "col-sm-5">
-        <h4 class="border-bot">x[i]</h4>
-         <div id = "x">
-          <input type="text" class="cell" name="x0"></input>
-          <input type="text" class="cell" name="x1"></input>
-          <input type="text" class="cell" name="x2"></input>
-        </div>
-      </div>
-      
-      <div class = "col-sm-5">
-        <h4 class="border-bot">f(x[i])</h4>
-        <div id="fx">
-          <input type="text" class="cell" name="fx0"></input>
-          <input type="text" class="cell" name="fx1"></input>
-          <input type="text" class="cell" name="fx2"></input>
-        </div>
-      </div>
-
     </div>
   
     <div class="col-sm-9">
@@ -103,6 +107,7 @@
       <div id="polinomio"></div>
       <div id="plot"></div>
     </div>
+
   </div>
 
 </div>

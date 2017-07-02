@@ -1,0 +1,125 @@
+body {
+      padding-top: 50px;
+      padding-bottom: 70px;
+      font: 20px Montserrat, sans-serif;
+      line-height: 1.8;
+      color: #4d4d4d;
+  }
+
+h6{
+  color: red;
+}
+
+  p {
+    font-size: 18px;
+  }
+
+  .container-fluid {
+      padding-top: 10px;
+      padding-bottom: 10px;
+  }
+
+  .border-bot{
+    border-bottom: 1px solid #b3b3b3;
+  }
+
+  .bg-2 { 
+      background-color: #474e5d; /* Dark Blue */
+      color: #ffffff;
+      border-radius: 10px;
+      height: 60px;
+      line-height: 40px;
+      margin-bottom: 1px;
+      margin-top: 1px;
+  }
+  .bg-3 {
+    position: relative;
+    background-color: #ffffff; /* White */
+    color: #555555;
+  }
+
+  input.error{   
+    border-color: rgba(255, 0, 0, 0.8);
+    box-shadow: 0 1px 1px rgba(255, 0, 0, 0.075) inset, 0 0 8px rgba(255, 0, 0, 0.6);
+    outline: 0 none;
+}
+
+.cell{
+  width: 100%;
+  text-align: right;
+}
+
+label[for="vals"]{
+  width: 100%;
+}
+input[type="number"]{
+  width: 50px;
+}
+input{
+  border: none;
+  border-bottom: 2px solid #b3b3b3;
+}
+
+input:focus{
+  outline: none;
+  border-color: #0095ff;
+  box-shadow: 0 4px 2px -2px rgba(0,149,255,0.5);
+}
+
+#calcula{
+  position: absolute;
+  bottom: 0px;
+  right: 20px;
+}
+
+label{
+  font-weight: 100;
+}
+
+.vals{
+  height: 30px;
+  margin-top: 5px;
+  width: 80px;
+  float: right;
+  text-align: right;
+}
+
+  .bg-4 { 
+      background-color: #2f2f2f; /* Black Gray */
+      color: #fff;
+     	position: fixed;
+     	bottom:0px;
+    	left:0px;
+    	right:0px;
+      width: 100%;
+      line-height: 20px;
+      
+  }
+  
+  .bg-1 {
+      background-color: #ff5050; /* Green */
+      color: #ffffff;
+      padding-top: 50px;
+      padding-bottom: 50px;
+  }
+  .navbar {
+      padding-top: 5px;
+      padding-bottom: 5px;
+      border: 0;
+      border-radius: 0;
+      margin-bottom: 0;
+      font-size: 16px;
+  }
+  .navbar-right{
+      padding-right: 100px;
+  }
+  .navbar-nav  li a:hover {
+      color: #1abc9c !important;
+  }
+
+.navbar-brand,
+.navbar-nav li a {
+    line-height: 20px;
+    height: 20px;
+    padding-top: 0;
+}

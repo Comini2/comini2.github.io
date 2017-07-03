@@ -1,0 +1,17 @@
+.box{
+	overflow: hidden;
+	text-align: center;
+}
+
+.box:before{
+    content: '';
+    height: 100%;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.box > img
+{
+    display: inline-block;
+    vertical-align: middle;
+}

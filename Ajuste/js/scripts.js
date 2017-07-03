@@ -1,11 +1,23 @@
 $(document).ready(function(){
 
+	$(document).keydown(function(e){
+		if(e.which === 27)
+			$(".fixed").hide();
+	});
+
+	$('.fixed').click(function(e){
+		if(e.target.className === 'fixed')
+			$(".fixed").hide();
+	});
+
 	var n_pontos = 3;
 
 	var x = [];
 	var fx = [];
 
 	$("#n_pontos").val(n_pontos);
+
+	$(".fixed").hide();
 
 	for(var i = 0; i<15; i++){
 		x[i] = 0;
@@ -58,6 +70,7 @@ $(document).ready(function(){
 		n_pontos = !isNaN(parseInt($("#n_pontos").val())) ? parseInt($("#n_pontos").val()) : 0;
 
 		$("#resultados").empty();
+		$("#options").children().not('button, h4, h6').remove();
 
 		atribuiValores();
 
@@ -109,7 +122,32 @@ $(document).ready(function(){
 
 			var rq = coeficiente(f, x, fx, n_pontos);
 			$("#resultados").append('<div class = "col-sm-12 border-bot"><div class = "col-sm-8"><h4>`y = a*x + b` <span class="arrow">&#8594;</span> `y = '+ f +'`</h4></div><div class= "col-sm-4"><h4>`R = ' + rq + '`</h4></div></div>');
+			$("#mostra").before('<div class="rad"><input type="radio" name="funcao" value ="' + f + '"> `y = '+ f +'`</div>');
+
 		});
+
+		$('#grafico').click(function(){
+
+			$('.fixed').show();
+
+			$('#plot').hide();
+
+			$('#options').show();
+
+			$("#options").css({top: $('#options').parent().height()/2 - $('#options').height()/2, left: $('#options').parent().width()/2 - $('#options').width()/2});
+		});
+
+		$('#mostra').click(function(){
+			if($('input[name="funcao"]:checked').length > 0){
+				$('#options').hide();
+				$('#plot').show();
+				var f = $('input[name="funcao"]:checked').val();
+
+				draw(f);
+
+				$("#plot").css({top: $('#plot').parent().height()/2 - $('#plot').height()/2, left: $('#plot').parent().width()/2 - $('#plot').width()/2});
+			}
+		})
 
 		MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
 
@@ -184,4 +222,6 @@ function draw(f) {
       console.log(err);
       alert(err);
     }
+
+
   }

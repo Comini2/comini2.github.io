@@ -18,13 +18,7 @@ h3{
 }
 
 label[for="cell"] input.cell{
-width: 65%;
-  height: 30px;
-  margin-bottom: 5px;
-}
-
-label{
-  min-width: 100%;
+	width: 65%;
   height: 30px;
   margin-bottom: 5px;
 }

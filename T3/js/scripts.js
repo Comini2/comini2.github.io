@@ -231,7 +231,7 @@ function attValores(){
 function desenhaSistema(){
 
 	$div_m.empty();
-	$div_m.append('<img src="img/colchete.png" style="margin-right: 10px; float: left;" id="colchete">');
+	$div_m.append('<img src="imgs/colchete.png" style="margin-right: 10px; float: left;" id="colchete">');
 
 	$table = $('<div class="box align"></div>');
 	for(var i = 0; i<n; i++){

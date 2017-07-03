@@ -121,7 +121,7 @@ $(document).ready(function(){
 			f = f.substring(0, ind) + b + f.substring(ind + 1);
 
 			var rq = coeficiente(f, x, fx, n_pontos);
-			$("#resultados").append('<div class = "col-sm-12 border-bot"><div class = "col-sm-8"><h4>`y = a*x + b` <span class="arrow">&#8594;</span> `y = '+ f +'`</h4></div><div class= "col-sm-4"><h4>`R = ' + rq + '`</h4></div></div>');
+			$("#resultados").append('<div class = "col-sm-12 border-bot"><div class = "col-sm-8"><h4>`y = '+ $(this).val() +'` <span class="arrow">&#8594;</span> `y = '+ f +'`</h4></div><div class= "col-sm-4"><h4>`R = ' + rq + '`</h4></div></div>');
 			$("#mostra").before('<div class="rad"><input type="radio" name="funcao" value ="' + f + '"> `y = '+ f +'`</div>');
 
 		});

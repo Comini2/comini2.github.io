@@ -4,6 +4,7 @@
 
  	<link rel="stylesheet" href="css/bootstrap.min.css">
  	<link rel="stylesheet" href="css/stylesheet.css">
+ 	<link href="https://fonts.googleapis.com/css?family=Oswald" rel="stylesheet">
  	 <script src="js/jquery.min.js"></script>
   	<script src="js/bootstrap.min.js"></script>
   	<script src="js/scripts.js"></script>
@@ -12,22 +13,29 @@
 
 </head>
 <body>
-	<div class="container">
-		<nav class="navbar  navbar-default">
-			<div class="container-fluid">
-				<div class="navbar-header"><a class="navbar-brand" href="#">Trabalhos MNC</a></div>
-				<div class="navbar-collapse collapse">
-					<ul class="nav navbar-nav">
-						<li><a href="T2/index.html">Raizes</a></li>
-						<li><a href="T3/index.html">Sistemas</a></li>
-						<li><a href="T4/index.html">Interpola&#231;&#227;o</a></li>
-						<li><a href="T5/index.html">Ajuste de Curvas</a></li>
-					</ul>
-				</div>
+	<nav class="navbar  navbar-inverse">
+		<div class="container">
+			<div class="navbar-header"><a class="navbar-brand" href="#">Início</a></div>
+			<div class="navbar-collapse collapse">
+				<ul class="nav navbar-nav">
+					<li><a href="T2/index.html">Raizes</a></li>
+					<li><a href="T3/index.html">Sistemas</a></li>
+					<li><a href="T4/index.html">Interpola&#231;&#227;o</a></li>
+					<li><a href="T5/index.html">Ajuste de Curvas</a></li>
+				</ul>
 			</div>
-		</nav>
-
-		<div id="trabalhos" class="row">
+		</div>
+	</nav>
+	<div id="app">
+		<div class="container-fluid bg-1">
+			<div class="jumbotron">
+				<h1>Trabalhos de Métodos Numéricos Computacionais</h1>
+				<p>Este projeto foi desenvolvido completamente em javaScript e jQuery.</p>
+			</div>
+		</div>
+		<div class = "bg-2">
+			<h2 class="border-bot">Capítulos: </h2>
+			<div id="trabalhos" class="wrapper"></div>
 		</div>
 	</div>
 </body>

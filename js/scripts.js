@@ -1,9 +1,19 @@
 $(document).ready(function(){
 
+	var nomes = ["Raízes", "Sistemas", "Interpolação", "Ajuste"];
+
 	for(var i = 0; i<4; i++){
 		var id = "T" + (i+2);
 
-		console.log(id);
-		$("#trabalhos").append('<div class="col-sm-3 box"><a href="' + id + '/index.html"><img src=' + id+ '/imgs/1.png></a></div>');
+		$("#trabalhos").append('<div class="box" id ="'+ id +'"><a href="' + id + '/index.html"><img src=' + id+ '/imgs/1.png><p>' + nomes[i] + '</p></a></div>');
 	}
+
+	$('a').click(function(e){
+
+		e.preventDefault();
+
+		var href = $(this).attr('href');
+
+		$("#app").load(href);
+	})
 })

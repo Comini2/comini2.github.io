@@ -15,42 +15,6 @@ $(document).ready(function(){
 		container.append('<h5>*Se o número de iterações não for definido, este será definido como 15.<h5>');
 		$('body').append(container);
 	}
-	$('body').append('<footer class="container-fluid bg-4 text-center"><p>Este site foi projetado e desenvolvido por João Comini</a></p></footer>');
-
-
-	$('.nav_drop').click(function(){
-		if (this.hash !== "") {
-	
-			$header = $(this.hash);
-			console.log(this.hash);
-
-			var met = this.hash.substring(this.hash.search('_'));
-
-			var container = '#container'+met;
-
-	    	$content = $(container);
-	   		
-	   		if(!$content.is(':visible')){
-
-		    	$content.collapse('show');
-
-				  $('html, body').animate({
-				    scrollTop: $header.offset().top - 50
-				  }, 800, function(){
-
-				  });
-	    	}else{
-
-				$('html, body').animate({
-					scrollTop: $header.offset().top - 50
-				  
-				}, 800, function(){
-
-				});
-	    	}
-	    		
-		}
-	});
 
 	$('.bg-2').click(function(){
 

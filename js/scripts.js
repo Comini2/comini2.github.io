@@ -12,6 +12,8 @@ $(document).ready(function(){
 
 		e.preventDefault();
 
+		$("#app").empty();
+		
 		var href = $(this).attr('href');
 
 		$("#app").load(href);

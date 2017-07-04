@@ -1,7 +1,30 @@
-
+html{
+	position: relative;
+	min-height: 100%;
+}
 body{
 	background-color: #f2f2f2;
 	font-family: 'Oswald', sans-serif;
+	margin-bottom: 60px;
+}
+
+.footer{
+	position: absolute;
+	bottom: 0;
+	width: 100%;
+	height: 60px;
+	background-color: #c3c3c3;
+}
+
+.footer > .container {
+  padding-right: 15px;
+  padding-left: 15px;
+}
+
+.container .text-muted {
+  margin: 17px 0;
+  font-size: 18px;
+  text-align: center;
 }
 
 .wrapper {
@@ -9,10 +32,6 @@ body{
 	display: flex;
 	padding-top: 12px;
 	justify-content: center;
-}
-
-.bg-2{
-	background-color: #f2f2f2;
 }
 
 .navbar{

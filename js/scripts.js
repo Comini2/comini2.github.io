@@ -7,15 +7,4 @@ $(document).ready(function(){
 
 		$("#trabalhos").append('<div class="box" id ="'+ id +'"><a href="' + id + '/index.html"><img src=' + id+ '/imgs/1.png><p>' + nomes[i] + '</p></a></div>');
 	}
-
-	$('a').click(function(e){
-
-		e.preventDefault();
-
-		$("#app").empty();
-		
-		var href = $(this).attr('href');
-
-		$("#app").load(href);
-	})
 })

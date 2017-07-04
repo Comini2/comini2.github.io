@@ -1,6 +1,7 @@
 
 body{
-	background-color: #000;
+	background-color: #f2f2f2;
+	font-family: 'Oswald', sans-serif;
 }
 
 .wrapper {
@@ -22,7 +23,8 @@ body{
 }
 
 .border-bot{
-	margin: 0px;
+	margin-left: 60px;
+	margin-right: 60px;
 	border-bottom: 1px solid #c3c3c3;
 }
 .bg-1{
@@ -32,9 +34,20 @@ body{
 }
 
 .bg-1 > .jumbotron{
-	background-color: rgba(255, 255, 255, 0);
+	background-color: rgba(0, 0, 0, 0);
 	color: white;
 	text-shadow: 1px 1px 6px #ffffff;
+}
+
+.jumbotron::after{
+	background-color: rgba(0, 0, 0, 1);
+	content: '';
+	height: 100%;
+	width: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: -1;
 }
 
 #app > h2{
@@ -44,7 +57,7 @@ body{
 }
 
 div.bg-1::after{
-	background: url(../imgs/bg.jpg);
+	background: #fff url(../imgs/bg.jpg);
 	width: 100%;
 	height: 100%;
 	content:'';
@@ -92,10 +105,6 @@ div.bg-1::after{
 
  li > a{
  	font-size: 20px;
- }
-
- .navbar-header, .bg-1 > .jumbotron, #app > h2, li > a{
- 	font-family: 'Oswald', sans-serif;
  }
 
  .navbar-header{

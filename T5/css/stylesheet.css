@@ -21,6 +21,26 @@ p {
   background-color: rgba(0, 0, 0, 0.5);
 }
 
+.navbar{
+  border-radius: 0px;
+  margin-bottom: 0px;
+  padding-bottom: 5px;
+  padding-top: 5px;
+}
+.navbar-header, li > a{
+  font-family: 'Oswald', sans-serif;
+ }
+
+ .navbar-header{
+  padding-left: 50px;
+  padding-right: 100px;
+ }
+
+ .navbar-header > a{
+  font-size: 26px;
+ }
+
+
 .border-bot{
   border-bottom: 1px solid #b3b3b3;
 }

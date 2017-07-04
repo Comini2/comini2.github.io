@@ -21,6 +21,26 @@ body {
    color: #ff1a1a;
   }
 
+
+.navbar{
+  border-radius: 0px;
+  margin-bottom: 0px;
+  padding-bottom: 5px;
+  padding-top: 5px;
+}
+.navbar-header, li > a{
+  font-family: 'Oswald', sans-serif;
+ }
+
+ .navbar-header{
+  padding-left: 50px;
+  padding-right: 100px;
+ }
+
+ .navbar-header > a{
+  font-size: 26px;
+ }
+
 .cell{
   width: 100%;
   text-align: right;

@@ -1,9 +1,18 @@
 body {
       font: 20px Montserrat, sans-serif;
       line-height: 1.8;
-      margin-bottom: 60px;
       color: #4d4d4d;
+      margin-bottom: 60px;
   }
+
+p {
+  font-size: 18px;
+}
+
+h6{
+  color: red;
+  display: none;
+}
 
 html{
   position: relative;
@@ -29,17 +38,9 @@ html{
   font-family: 'Oswald', sans-serif;
 }
 
-.arrow{
-  float: right;
-}
-
-h6{
-  color: red;
-  display: none;
-}
-
-p {
-  font-size: 18px;
+.container-fluid {
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
 
 .navbar{
@@ -52,6 +53,10 @@ p {
   font-family: 'Oswald', sans-serif;
  }
 
+ #funcao{
+  width: 90%;
+ }
+
  .navbar-header{
   padding-left: 50px;
   padding-right: 100px;
@@ -61,26 +66,39 @@ p {
   font-size: 26px;
  }
 
-.container-fluid {
-  padding-top: 10px;
-  padding-bottom: 10px;
+
+.border-bot{
+  border-bottom: 1px solid #999999;
 }
 
-label{
-  font-weight: 100;
+.rad{
+  margin-bottom: 10px;
+  margin-top: 10px;
 }
 
-label[for="funcao"]{
+#calcula{
+  margin-top: 15px;
+  float: right;
+  margin-right: 4%;
+}
+
+.cell{
+  width: 100%;
+  text-align: right;
+}
+
+.arrow{
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+.labelf{
   width: 100%;
   margin-bottom: 15px;
 }
 
- #funcao{
-  width: 90%;
- }
-
-.border-bot{
-  border-bottom: 1px solid #999999;
+.inputf{
+  width: 85%;
 }
 
 input[type="text"]{
@@ -94,17 +112,8 @@ input[type="text"]:focus{
   box-shadow: 0 4px 2px -2px rgba(0,149,255,0.5);
 }
 
-#calcula{
-  margin-top: 15px;
-  float: right;
-  margin-right: 4%;
-}
-  
-.bg-1 {
-  background-color: #1abc9c;
-  color: #ffffff;
-  padding-top: 50px;
-  padding-bottom: 50px;
+label{
+  font-weight: 100;
 }
 
 .vals{
@@ -114,10 +123,9 @@ input[type="text"]:focus{
   float: right;
 }
 
-label[for="passo"],label[for="erro"]{
-  width: 70%;
-}
-
-#passo, #erro{
-  width: 60%;
+.bg-1 {
+  background-color: #800000;
+  color: #ffffff;
+  padding-top: 50px;
+  padding-bottom: 50px;
 }

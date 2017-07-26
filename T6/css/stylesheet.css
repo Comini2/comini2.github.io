@@ -68,7 +68,7 @@ html{
 
 
 .border-bot{
-  border-bottom: 1px solid #b3b3b3;
+  border-bottom: 1px solid #999999;
 }
 
 .rad{
@@ -99,30 +99,17 @@ label[for="funcao"]{
 
 input[type="text"]{
   border: none;
-  border-bottom: 2px solid #b3b3b3;
+  border-bottom: 1px solid #b3b3b3;
 }
 
 input[type="text"]:focus{
   outline: none;
   border-color: #0095ff;
   box-shadow: 0 4px 2px -2px rgba(0,149,255,0.5);
-
 }
 
 label{
   font-weight: 100;
-}
-
-.col-sm-4.border-bot.r{
-  position: absolute;
-  bottom: 0;
-  right: 15px;
-}
-
-.col-sm-2.a{
-  padding-right: 5px;
-  padding-left: 5px;
-  text-align: center;
 }
 
 .vals{

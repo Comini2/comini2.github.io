@@ -1,7 +1,6 @@
 body {
       font: 20px Montserrat, sans-serif;
       line-height: 1.8;
-      color: #f5f6f7;
       margin-bottom: 60px;
   }
 
@@ -29,6 +28,10 @@ html{
   font-family: 'Oswald', sans-serif;
 }
 
+.arrow{
+  float: right;
+}
+
 h6{
   color: red;
   display: none;
@@ -36,10 +39,6 @@ h6{
 
 p {
   font-size: 18px;
-}
-
-.btn.clean{
-  margin-left: 20px;
 }
 
 .navbar{
@@ -66,47 +65,38 @@ p {
   padding-bottom: 10px;
 }
 
-.bg-2 { 
-    background-color: #474e5d;
-    color: #ffffff;
-    border-radius: 10px;
-    height: 60px;
-    line-height: 40px;
-    margin-bottom: 1px;
-    margin-top: 1px;
-}
-.bg-3 {
-  position: relative;
-  background-color: #ffffff;
-  color: #555555;
+label{
+  font-weight: 100;
 }
 
-input.error{   
-  border-color: rgba(255, 0, 0, 0.8);
-  box-shadow: 0 1px 1px rgba(255, 0, 0, 0.075) inset, 0 0 8px rgba(255, 0, 0, 0.6);
-  outline: 0 none;
-}
-
-input{
-  position: relative;
-}
-
-.bg-3.loading{
-  background: url('../imgs/loading.gif') no-repeat center center;
-  background-size: 110px 110px;
-  z-index: 100;
-}
-
-.bg-4 { 
-  background-color: #2f2f2f;
-  color: #fff;
- 	position: fixed;
- 	bottom:0px;
-	left:0px;
-	right:0px;
+label[for="funcao"]{
   width: 100%;
-  line-height: 20px;
-  
+  margin-bottom: 15px;
+}
+
+ #funcao{
+  width: 90%;
+ }
+
+.border-bot{
+  border-bottom: 1px solid #999999;
+}
+
+input[type="text"]{
+  border: none;
+  border-bottom: 1px solid #b3b3b3;
+}
+
+input[type="text"]:focus{
+  outline: none;
+  border-color: #0095ff;
+  box-shadow: 0 4px 2px -2px rgba(0,149,255,0.5);
+}
+
+#calcula{
+  margin-top: 15px;
+  float: right;
+  margin-right: 4%;
 }
   
 .bg-1 {
@@ -114,4 +104,19 @@ input{
   color: #ffffff;
   padding-top: 50px;
   padding-bottom: 50px;
+}
+
+.vals{
+  height: 30px;
+  margin-top: 5px;
+  width: 50px;
+  float: right;
+}
+
+label[for="passo"],label[for="erro"]{
+  width: 70%;
+}
+
+#passo, #erro{
+  width: 60%;
 }

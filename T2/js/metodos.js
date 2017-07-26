@@ -1,48 +1,11 @@
-importScripts('math.js');
-
-this.onmessage = function(e){
-
-	var met = e.data[0];
-	var f = e.data[1];
-	var a = e.data[2];
-	var b = e.data[3];
-	var maxIt = e.data[4];
-	var erro = e.data[5];
-
-	try{
-	var intervalos = buscaUniforme(f, a, b, 0.001, maxIt);
-
-		var x = [];
-
-		if(met === '_bis'){
-			x = bisseccao(f, intervalos, maxIt, erro);
-		}
-		else if(met === '_cordas'){
-			x = cordas(f, intervalos, maxIt, erro);
-		}
-		else if(met === '_newton'){
-			x = newton(f, intervalos, maxIt, erro);
-		}
-		else if(met === '_cordas_m'){
-			x = cordasModificado(f, intervalos, maxIt, erro);
-		}
-		else if(met === '_newton_m'){
-			x = newtonModificado(f, intervalos, maxIt, erro);
-		}
-
-	}catch(err){
-		postMessage(null);
-		return;
-	}
-	postMessage([x, intervalos]);
-}
-
-function buscaUniforme(f, a, b, h, maxIt){
+function buscaUniforme(fn, a, b, h, maxIt){
 	var p = a;
 	var q = p + h;
 
-	var fp = math.eval(f, {x: p});
-	var fq = math.eval(f, {x: q});
+	var f = math.compile(fn);
+
+	var fp = f.eval({x: p});
+	var fq = f.eval({x: q});
 
 	var intervalos = [];
 	while((q<b)){
@@ -51,7 +14,7 @@ function buscaUniforme(f, a, b, h, maxIt){
 		p = q;
 		q = p + h;
 		fp = fq;
-		fq = math.eval(f, {x: q});
+		fq = f.eval({x: q});
 	}
 
 	return intervalos;

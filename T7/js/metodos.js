@@ -1,33 +1,54 @@
- function derivadaParcial (f, x, margem, i){
+ function derivadaParcial (f, x, i){
 
-       var h, xi, mais, menos, q, erro, p;
-       var func = math.compile(f);
+	var h, xi, mais, menos, q, erro, p;
+	var func = math.compile(f);
 
-       h = 1024*margem;
-       erro = Infinity;
-       xi = x["x"+i];
-       x["x"+i] = xi + h;
-       mais = f.eval(x);
-       x["x"+i] = xi - h;
-       menos = f.eval(x);
-       p = (mais-menos)/(2*h);
+	h = 1024*1e-4;
+	erro = Infinity;
+	xi = x["x"+i];
+	x["x"+i] = xi + h;
+	mais = func.eval(x);
+	x["x"+i] = xi - h;
+	menos = func.eval(x);
+	p = (mais-menos)/(2*h);
 
-      for(var j = 0; j<20; j++){
-        q = p;
-        h = h/2;
-        x[i] = xi + h;
-        if (FxRn (f, x, Colchetes, mais) <> 0) then Exit (-22);
-        x[i] = xi - h;
-        if (FxRn (f, x, Colchetes, menos) <> 0) then Exit (-22);
-        p = (mais-menos)/(2*h);
+	for(var j = 0; j<20; j++){
+		q = p;
+		h = h/2;
+		x["x"+i] = xi + h;
+		mais = func.eval(x);
+		x["x"+i] = xi - h;
+			menos = func.eval(x);
+		p = (mais-menos)/(2*h);
 
-        if abs (p-q) < margem then begin
-           x[i] = xi;
-           Exit (p);
-        end;
+		if(Math.abs (p-q)){
+		   x["x"+i] = xi;
+		   return p;
+		}
 
-        if erro < abs (q-p) then begin
-           x[i] = xi;
-           Exit (q) //verifica se começou a divergir
-       end else erro = abs (q-p);
+		if(erro < Math.abs (q-p)){
+		   x["x"+i] = xi;
+		   return q;
+		}else
+			erro = Math.abs (q-p);
+	}
+}
+
+function gradiente(f, x, n){
+	var y = [];
+
+	for(var i = 0; i<n; i++){
+		y[i] = derivadaParcial(f, x, i+1);
+		if(y[i] === undefined)
+			y[i] = 0;
+	}
+	return y;
+}
+
+function jacobiano(f, n, x){
+	var j = [];
+	for(var i = 0; i<n; i++)
+		j[i] = [];
+
+	
 }

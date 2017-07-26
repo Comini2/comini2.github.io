@@ -31,6 +31,7 @@ html{
 
 h6{
   color: red;
+  display: none;
 }
 
 p {

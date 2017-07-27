@@ -120,6 +120,19 @@ label{
   font-weight: 100;
 }
 
+label[for="n"]{
+  width: 30%;
+}
+#it, #tol{
+  width: 30%;
+}
+label[for="it"]{
+  width: 30%;
+}
+label[for="tol"]{
+  width: 30%;
+}
+
 .vals{
   height: 30px;
   margin-top: 5px;

@@ -174,7 +174,7 @@ function newtonModificado(fn, intervalos, maxIt, tolerancia){
 
 		for(var i = 0; Math.abs(p-q) < tolerancia && i < maxIt; i++){
 			q = p;
-			if(i%4 === 0)
+			if(!(i%4))
 				derivada = f_d.eval({x: p});
 			p -= f.eval({x: p})/derivada;
 		}

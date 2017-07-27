@@ -67,7 +67,6 @@ $(document).ready(function(){
 				break;
 			case 'dlu':
 				x = decomposicaoLU(matriz, n, b);
-				//TODO
 				break;
 			case 'cholesky':
 				ehSimetrico (matriz, n) && determinante(matriz, n) > 0 ? x = cholesky (matriz, n, b) : alert ('A matriz inserida não é simétrica.');

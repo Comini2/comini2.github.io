@@ -18,6 +18,7 @@ $(document).ready(function(){
 		$(".inputf").each(function(){
 			var i = $(this).attr('name').substring(1);
 			f[i-1] = $(this).val();
+			f[i-1] = f[i-1].replace(/[\[\]]+/g, '');
 		});
 
 		switch($('input[name="metodo"]:checked').val()){

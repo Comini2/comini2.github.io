@@ -6,8 +6,19 @@ $(document).ready(function(){
 	var xIni = [];
 	var x = [];
 
-	$('.par').hide();
-	$('.align.op').hide();
+	$('input[name="tipo"]').change(function(){
+		if($(this).val() == "dir"){
+			$("#dir").prop("disabled", false);
+			$("#it").prop("disabled", true);
+			$('.cell.x').parent().remove();
+			$('.cell.x').remove();
+		}else{
+			$("#dir").prop("disabled", true);
+			$("#it").prop("disabled", false);
+			for(var i = 0; i<n; i++)
+				$('input[name="b'+i+'"]').parent().after('<label for="cell x">&rarr;<input type="text" name="x'+i+'ini" class="cell x">(x<sub>ini' + (i+1) +' </sub>)</label>');
+		}
+	});
 
 	var $div_m = $('#matriz');
 
@@ -33,91 +44,110 @@ $(document).ready(function(){
 		attValores();
 
 		var det = JSON.parse(JSON.stringify(matriz));
+		var clone = JSON.parse(JSON.stringify(matriz));
 
-		$('#det').remove();
-		$('.border-bot').show();
-		$('.col-sm-12').show();
-		$('.par').show();
-		$('.align.op').show();
-		$('#matriz_esc').empty();
-		$('#matriz_inv').empty();
-		$('#inv h3').remove();
-
-		$('#inv br').remove();
-
-		$('#x_final').empty();
-		$('#b_final').empty();
 		$('#resumo').empty();
+		$("#resultado").empty();
+		$("#inversa").empty();
+		$("#det").empty();
 
-		var inv = inversa(matriz, n);
+		var inv = inversa(clone, n);
 
-		switch($('input[name="metodo"]:checked').val()){
-
+		if($('input[name="tipo"]').val() == 'dir'){
+			switch($("#dir").val()){
 			case 'gauss':
-				x = gauss(matriz, b, n);
+				x = gauss(clone, b, n);
 				break;
 			case 'gausspp':
-				x = gaussParcial(matriz, b, n);
+				x = gaussParcial(clone, b, n);
 				break;
 			case 'gausspt':
-				x = gaussTotal(matriz, b, n);
+				x = gaussTotal(clone, b, n);
 				break;
 			case 'gausscmp':
-				x = gaussCompacto(matriz, n, b);
+				x = gaussCompacto(clone, n, b);
 				break;
 			case 'dlu':
-				x = decomposicaoLU(matriz, n, b);
+				x = decomposicaoLU(clone, n, b);
 				break;
 			case 'cholesky':
-				ehSimetrico (matriz, n) && determinante(matriz, n) > 0 ? x = cholesky (matriz, n, b) : alert ('A matriz inserida não é simétrica.');
+				ehSimetrico (clone, n) && determinante(det, n) > 0 ? x = cholesky (clone, n, b) : alert ('A matriz inserida não é simétrica.');
 				break;
-			case '_jacobi':
+			}
+		}else{
+			switch($("it").val()){
+			case 'jacobi':
 				var maxIt = $('#maxIt').val();
 				var tolerancia = $('#erro').val();
-				x = jacobi(matriz, b, xIni, n, maxIt, tolerancia);
+				x = jacobi(clone, b, xIni, n, maxIt, tolerancia);
 				break;
-			case '_gauss':
+			case 'seidel':
 				var maxIt = $('#maxIt').val();
 				var tolerancia = $('#erro').val();
-				x = seidel(matriz, b, xIni, n, maxIt, tolerancia);
+				x = seidel(clone, b, xIni, n, maxIt, tolerancia);
 				break;
+			}
 		}
 
-		$('#inv').prepend("<br><h3>Inversa: </h3>");
+		var m_esc = "`[";
+		var m_inv = "`[";
+		var b_final = "`[";
+		var x_final = "`["
+
 
 		for (var i = 0; i < n; i++){
+			m_esc += "[";
+			m_inv += "[";
+			b_final += "[";
+			x_final += "[";
 
 			for(var j = 0; j<n; j++){
-				$('#matriz_esc').append('<label class="result">' + matriz[i][j].toFixed(2) + '</label>');
-				$('#matriz_inv').append('<label class="result">' + inv[i][j].toFixed(2) + '</label>');
+				if(j<n-1){
+					m_esc += clone[i][j].toFixed(2) + ',';
+					m_inv += inv[i][j].toFixed(2) + ',';
+				}
+				else{
+					m_esc += clone[i][j].toFixed(2);
+					m_inv += inv[i][j].toFixed(2);
+				}
 			}
-
-			$('#matriz_esc').append('<br>');
-			$('#matriz_inv').append('<br>');
-
-			$('#x_final').append('<label class="result">' + x[i].toFixed(3) + '</label><br>');
-			$('#b_final').append('<label class="result">' + b[i].toFixed(2) + '</label><br>');
-			$('#resumo').append('<label class="resumo">x<sub>' + (i+1) + '</sub>= &nbsp;' + x[i] + '</label><br>');
-
+			if(i<n-1){
+				m_esc += "],";
+				m_inv += "],";
+				x_final += x[i].toFixed(3);
+				b_final += b[i].toFixed(2);
+				b_final += "],";
+				x_final += "],";
+				$('#resumo').append('`x_' + (i+1) + '= &nbsp;' + x[i].toFixed(5) + ',`');
+			}else{
+				m_esc += "]";
+				m_inv += "]";
+				x_final += x[i].toFixed(3);
+				b_final += b[i].toFixed(2);
+				b_final += "]";
+				x_final += "]";
+				$('#resumo').append('`x_' + (i+1) + '= &nbsp;' + x[i].toFixed(5) + '`');
+			}
 		}
 
+		m_esc += "]`";
+		m_inv += "]`";
+		b_final += "]`";
+		x_final += "]`";;
 
+		$("#resultado").append("`A.X = `" +m_esc + x_final + "`=`" + b_final);
+		$("#inversa").append("`A^-1 = `" + m_inv);
+		$('#inversa').append('`rarrdet(A) = ' + determinante(det, n).toFixed(5) +'`');
 
-		$('#resultado').append('<div id="det"><br><h3>det(A) = ' + determinante(det, n) +'</h3></div>');
-
-		$('#container_resultado').addClass('border-bot');
-
-		$('img').height($('#matriz_esc').height());
-		$('.align.op').css('padding-top', $('#matriz_esc').height()/2 - $('.align.op').height()/2);
-
-		$('html, body').animate({scrollTop: $('.col-sm-12.bot').offset().top}, 800);
-
-		$('#resumo').height($('#resumo').parent().height() - 80);
+		MathJax.Hub.Queue(["Typeset",MathJax.Hub], function(){
+			$("html, body").animate({scrollTop: $("#container_resultado").offset().top}, 500);
+		});
+		
 
 	});
 
-	$('.cell.m').keyup(function(){
-			($(this).val() !== 0) ? $(this).removeClass('zero') : $(this).addClass('zero');
+	$('.zero').keyup(function(){
+			$(this).removeClass('zero');
 	});
 
 
@@ -138,33 +168,17 @@ $(document).ready(function(){
 
 	$('#limpa_sol').click(function(){
 		$('#resumo').empty();
-		$('.par').hide();
-		$('.align.op').hide();
-		$('#matriz_esc').empty();
-		$('#resultado h3').remove();
-
-		$('#matriz_inv').empty();
-		$('#inv h3').remove();
-
-		$('#inv br').remove();
-
-		$('#x_final').empty();
-		$('#b_final').empty();
-	})
-
-	$('input[name="metodo"]').click(function(){
-		desenhaXinicial();
+		$("#resultado").empty();
 	});
 
+	$('#ordem').change(function(){
 
-	$('#ordem').keyup(function(){
+		n = !isNaN(parseInt($(this).val())) ? parseInt($(this).val()) : n;
 
-		n = !isNaN($(this).val()) ? parseInt($(this).val()) : n;
-
-		if(n > 10){
-			n = 10;
+		if(n > 5){
+			n = 5;
 			$(this).val(n);
-		}else if(n<=0){
+		}else if(n<2){
 			n = 3;
 			$(this).val(n);
 		}else if(!isNaN(n))
@@ -190,11 +204,15 @@ $(document).ready(function(){
 		$('.cell').focus(function(){
 			$(this).select();
 		});
+		$('.zero').keyup(function(){
+			$(this).removeClass('zero');
+		});
 
 	});
 
 	$('.cell').focus(function(){
 			$(this).select();
+
 	});
 
 function attValores(){
@@ -203,7 +221,7 @@ function attValores(){
 		var name = $(this).attr('name');
 		var i = name[name.length - 1];
 
-		xIni[i] = !isNaN($(this).val()) ? parseFloat($(this).val()) : 0;
+		xIni[i] = !isNaN(parseFloat($(this).val())) ? parseFloat($(this).val()) : 0;
 	});
 
 	$('.cell.m').each(function(){
@@ -214,14 +232,14 @@ function attValores(){
 		var j = name.substring(indice+1);
 		var i = name.substring(1, indice);
 
-		matriz[i][j] = !isNaN($(this).val()) ? parseFloat($(this).val()) : 0;
+		matriz[i][j] = !isNaN(parseFloat($(this).val())) ? parseFloat($(this).val()) : 0;
 	});
 
 	$('.cell.b').each(function(){
 		var name = $(this).attr('name');
 		var i = name.substring(1);
 
-		b[i] = !isNaN($(this).val()) ? parseFloat($(this).val()) : 0;
+		b[i] = !isNaN(parseFloat($(this).val())) ? parseFloat($(this).val()) : 0;
 	});
 
 
@@ -230,11 +248,9 @@ function attValores(){
 function desenhaSistema(){
 
 	$div_m.empty();
-	$div_m.append('<img src="imgs/colchete.png" style="margin-right: 10px; float: left;" id="colchete">');
 
-	$table = $('<div class="box align"></div>');
 	for(var i = 0; i<n; i++){
-		$row = $('<div class="row-m"></div>');
+		$row = $('<div class="col-sm-12 m-row"></div>');
 		for(var j = 0; j<n; j++){
 			if(j < n-1)
 				$row.append('<label for="cell"><input type="text" name="m'+i+','+j+'" class="cell m"><span>.x<sub>'+(j+1)+ '</sub>+</span></label>');
@@ -242,25 +258,15 @@ function desenhaSistema(){
 				$row.append('<label for="cell"><input type="text" name="m'+i+','+j+'" class="cell m"><span>.x<sub>'+(j+1)+ '</sub>=</span></label>');
 				$row.append('<label for="cell"><input type="text" name="b'+i+'" class="cell b"><span>(b<sub>' + (i+1) +' </sub>)</span></label>');
 			}
-			$table.append($row);
 		}
-		$div_m.append($table);
-
-		$('#colchete').height($('#colchete').next().height());
+		$div_m.append($row);
 	}
 
-	desenhaXinicial();
-}
-
-function desenhaXinicial(){
-	if($('input[name="metodo"]:checked').val().search('_') !== -1 && !$('.cell.x').length){
-			for(var i = 0; i<n; i++){
-				$('input[name="b'+i+'"]').parent().after('<label for="cell">--><input type="text" name="xini'+i+'" class="cell x">(x<sub>ini' + (i+1) +' </sub>)</label>');
-			}
-	}else if($('.cell.x').length && $('input[name="metodo"]:checked').val().search('_') === -1){
-			$('.cell.x').parent().remove();
-			$('.cell.x').remove();
+	if($('input[name="tipo"]:checked').val() == "it"){
+		for(var i = 0; i<n; i++)
+			$('input[name="b'+i+'"]').parent().after('<label for="cell x">&rarr;<input type="text" name="x'+i+'ini" class="cell x">(x<sub>ini' + (i+1) +' </sub>)</label>');
 	}
+
 }
 
 });

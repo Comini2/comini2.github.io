@@ -332,7 +332,7 @@ function jacobi(matriz, b, xini, n, maxIt, tolerancia){
 function seidel(matriz, b, xini, n, maxIt, tolerancia){
 
 	if(!CDL(matriz, n) && !CDS(matriz, n)){
-		alerta("Os critérios não foram satisfeitos.");
+		alert("Os critérios não foram satisfeitos.");
 		return;
 	}
 
@@ -391,11 +391,19 @@ function determinante(matriz, n){
 }
 
 function inversa(matriz, n){
-	var ident = [[1, 0, 0], [0, 1, 0], [0, 0, 1]];
+
+
+	var ident = [];
 	var invt = [];
 	var inv = [];
 
 	var clone = JSON.parse(JSON.stringify(matriz));
+
+	for(var i = 0; i<n; i++){
+		ident[i] = [];
+		for(var j = 0; j<n; j++)
+			ident[i][j] = i===j ? 1 : 0;
+	}
 
 	for(var i = 0; i<n; i++)
 		invt[i] = decomposicaoLU(clone, n, ident[i]);

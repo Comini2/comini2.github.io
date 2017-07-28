@@ -1,6 +1,6 @@
 $(document).ready(function(){
 
-	var nomes = ["Raízes", "Sistemas", "Interpolação", "Ajuste", "Integrais", "Sistemas não-lineares"];
+	var nomes = ["Raízes", "Sistemas lineares", "Interpolação", "Ajuste", "Integrais", "Sistemas não-lineares"];
 
 	for(var i = 0; i<6; i++){
 		var id = "T" + (i+2);

@@ -45,6 +45,7 @@ $(document).ready(function(){
 
 		var det = JSON.parse(JSON.stringify(matriz));
 		var clone = JSON.parse(JSON.stringify(matriz));
+		var clone_b = JSON.parse(JSON.stringify(b));
 
 		$('#resumo').empty();
 		$("#resultado").empty();
@@ -56,22 +57,22 @@ $(document).ready(function(){
 		if($('input[name="tipo"]').val() == 'dir'){
 			switch($("#dir").val()){
 			case 'gauss':
-				x = gauss(clone, b, n);
+				x = gauss(clone, clone_b, n);
 				break;
 			case 'gausspp':
-				x = gaussParcial(clone, b, n);
+				x = gaussParcial(clone, clone_b, n);
 				break;
 			case 'gausspt':
-				x = gaussTotal(clone, b, n);
+				x = gaussTotal(clone, clone_b, n);
 				break;
 			case 'gausscmp':
-				x = gaussCompacto(clone, n, b);
+				x = gaussCompacto(clone, n, clone_b);
 				break;
 			case 'dlu':
-				x = decomposicaoLU(clone, n, b);
+				x = decomposicaoLU(clone, n, clone_b);
 				break;
 			case 'cholesky':
-				ehSimetrico (clone, n) && determinante(det, n) > 0 ? x = cholesky (clone, n, b) : alert ('A matriz inserida não é simétrica.');
+				ehSimetrico (clone, n) && determinante(det, n) > 0 ? x = cholesky (clone, n, clone_b) : alert ('A matriz inserida não é simétrica.');
 				break;
 			}
 		}else{
@@ -79,12 +80,12 @@ $(document).ready(function(){
 			case 'jacobi':
 				var maxIt = $('#maxIt').val();
 				var tolerancia = $('#erro').val();
-				x = jacobi(clone, b, xIni, n, maxIt, tolerancia);
+				x = jacobi(clone, clone_b, xIni, n, maxIt, tolerancia);
 				break;
 			case 'seidel':
 				var maxIt = $('#maxIt').val();
 				var tolerancia = $('#erro').val();
-				x = seidel(clone, b, xIni, n, maxIt, tolerancia);
+				x = seidel(clone, clone_b, xIni, n, maxIt, tolerancia);
 				break;
 			}
 		}
@@ -115,7 +116,7 @@ $(document).ready(function(){
 				m_esc += "],";
 				m_inv += "],";
 				x_final += x[i].toFixed(3);
-				b_final += b[i].toFixed(2);
+				b_final += clone_b[i].toFixed(2);
 				b_final += "],";
 				x_final += "],";
 				$('#resumo').append('`x_' + (i+1) + '= &nbsp;' + x[i].toFixed(5) + ',`');
@@ -123,7 +124,7 @@ $(document).ready(function(){
 				m_esc += "]";
 				m_inv += "]";
 				x_final += x[i].toFixed(3);
-				b_final += b[i].toFixed(2);
+				b_final += clone_b[i].toFixed(2);
 				b_final += "]";
 				x_final += "]";
 				$('#resumo').append('`x_' + (i+1) + '= &nbsp;' + x[i].toFixed(5) + '`');

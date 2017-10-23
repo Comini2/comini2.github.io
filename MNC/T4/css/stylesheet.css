@@ -1,0 +1,126 @@
+body {
+      font: 20px Montserrat, sans-serif;
+      line-height: 1.8;
+      color: #4d4d4d;
+      margin-bottom: 60px;
+  }
+
+  p {
+    font-size: 18px;
+  }
+
+html{
+  position: relative;
+  min-height: 100%;
+}
+.footer{
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 60px;
+  background-color: #c3c3c3;
+}
+
+.footer > .container {
+  padding-right: 15px;
+  padding-left: 15px;
+}
+
+.container .text-muted {
+  margin: 17px 0 0 0;
+  font-size: 18px;
+  text-align: center;
+  font-family: 'Oswald', sans-serif;
+}
+
+  .container-fluid {
+      padding-top: 10px;
+      padding-bottom: 10px;
+  }
+
+  .border-bot{
+    border-bottom: 1px solid #b3b3b3;
+  }
+
+  .warning{
+   color: #ff1a1a;
+  }
+
+
+.navbar{
+  border-radius: 0px;
+  margin-bottom: 0px;
+  padding-bottom: 5px;
+  padding-top: 5px;
+}
+.navbar-header, li > a{
+  font-family: 'Oswald', sans-serif;
+ }
+
+ .navbar-header{
+  padding-left: 50px;
+  padding-right: 100px;
+ }
+
+ .navbar-header > a{
+  font-size: 26px;
+ }
+
+.cell{
+  width: 100%;
+  text-align: right;
+}
+
+label[for="vals"]{
+  width: 100%;
+}
+input[type="number"]{
+  width: 50px;
+}
+input{
+  border: none;
+  border-bottom: 2px solid #b3b3b3;
+}
+
+input:focus{
+  outline: none;
+  border-color: #0095ff;
+  box-shadow: 0 4px 2px -2px rgba(0,149,255,0.5);
+}
+
+#calcula{
+  position: absolute;
+  bottom: 0px;
+  right: 10px;
+}
+
+label{
+  font-weight: 100;
+}
+
+.vals{
+  height: 30px;
+  margin-top: 5px;
+  width: 80px;
+  float: right;
+  text-align: right;
+}
+
+.bg-4 { 
+  background-color: #2f2f2f; /* Black Gray */
+  color: #fff;
+ 	position: fixed;
+ 	bottom:0px;
+	left:0px;
+	right:0px;
+  width: 100%;
+  line-height: 20px;
+  
+}
+
+.bg-1 {
+  background-color: #ff5050; /* Green */
+  color: #ffffff;
+  padding-top: 50px;
+  padding-bottom: 50px;
+}

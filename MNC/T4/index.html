@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Interpolação</title>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="stylesheet" href="../css/bootstrap.min.css">
+  <link href="../css/montserrat.css" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="css/stylesheet.css">
+  <link href="https://fonts.googleapis.com/css?family=Oswald" rel="stylesheet">
+
+  <script src="../js/jquery.min.js"></script>
+  <script type="text/javascript" src="../js/math.js"></script>
+  <script src="../js/bootstrap.min.js"></script>
+  <script src="../js/d3.min.js"></script>
+  <script src="../js/function-plot.js"></script>
+  <script type="text/javascript" src="js/metodos.js"></script>
+  <script type="text/javascript" src="js/scripts.js"></script>
+
+</head>
+<body>
+
+<nav class="navbar  navbar-inverse">
+  <div class="container">
+    <div class="navbar-header"><a class="navbar-brand" href="../index.html">Início</a></div>
+    <div class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li><a href="../T2/index.html">Raizes</a></li>
+        <li><a href="../T3/index.html">Sistemas lineares</a></li>
+        <li class="active"><a href="#">Interpola&#231;&#227;o</a></li>
+        <li><a href="../T5/index.html">Ajuste de Curvas</a></li>
+        <li><a href="../T6/index.html">Integrais</a></li>
+        <li><a href="../T7/index.html">Sistemas não-lineares</a></li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="../info.html">Informa&#231;ões</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="container-fluid bg-1 text-center">
+  <h1 class="margin">Interpolação</h1>
+  <p>Métodos numéricos utilizados para encontrar uma função que represente os pontos dados.</p>
+</div>
+
+<div class ="container">
+  <div class="row">
+    <div class = "col-sm-3">
+      <div class = "border-bot">
+        <h3>Métodos</h3>
+      </div>
+      <label><input type="radio" name="metodo" value="sistema" checked="true">&nbsp;Sistema Linear</label><br>
+      <label><input type="radio" name="metodo" value="newton">&nbsp;Newton</label><br>
+      <label><input type="radio" name="metodo" value="gregory">&nbsp;Newton-Gregory</label><br>
+    </div>
+    <div class = "col-sm-9">
+      <div class ="border-bot">
+        <h3>Entrada</h3>
+      </div>
+      <div class="row">
+        <div class="col-sm-5">
+          <label for="vals">Grau do polinômio: <input type="text" id="grau" class="vals" "></label><br>
+          <label for="vals">Nº de pontos: <input type="text" id="n_pontos" class="vals" "></label><br>
+          <label for="vals">Ponto de Referência*: <input type="text" id="ref" class="vals""></label><br>
+        </div>
+      </div>
+      <h6>*Este é apenas utilizado caso o nº de pontos seja maior que o grau do polinômio + 1 (n + 1). Se não definido, este será dado como 0.</h6>
+      <button class="btn btn-primary" id="calcula">Calcular</button>
+    </div>
+  </div>
+
+  <div class="row">
+
+    <div class = "col-sm-3">
+
+      <div class = "border-bot">
+          <h3>Pontos</h3>
+      </div>
+      <div class="row">
+        <div class = "col-sm-2" >
+          <h4 class="border-bot">i</h4>
+          <div id="indice">
+            <label>0</label>
+            <label>1</label>
+            <label>2</label>
+          </div>
+        </div>
+
+        <div class = "col-sm-5">
+          <h4 class="border-bot">x[i]</h4>
+           <div id = "x">
+            <input type="text" class="cell" name="x0">
+            <input type="text" class="cell" name="x1">
+            <input type="text" class="cell" name="x2">
+          </div>
+        </div>
+        
+        <div class = "col-sm-5">
+          <h4 class="border-bot">f(x[i])</h4>
+          <div id="fx">
+            <input type="text" class="cell" name="fx0">
+            <input type="text" class="cell" name="fx1">
+            <input type="text" class="cell" name="fx2">
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <div class="col-sm-9">
+      <div class = "border-bot"><h3>Solução</h3></div>
+      <div id="polinomio"></div>
+      <div id="plot"></div>
+    </div>
+
+  </div>
+
+</div>
+
+<footer class="footer">
+    <div class="container">
+      <p class="text-muted">Projetado e desenvolvido por <a href="../info.html">Jo&#227;o Comini</a></p>     
+    </div>
+  </footer>
+
+</body>
+</html>

@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Ajuste</title>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link href="https://fonts.googleapis.com/css?family=Oswald" rel="stylesheet">
+  <link rel="stylesheet" href="../css/bootstrap.min.css">
+  <link href="../css/montserrat.css" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="css/stylesheet.css">
+
+  <script src="../js/jquery.min.js"></script>
+  <script type="text/javascript" src="../js/math.js"></script>
+  <script src="../js/bootstrap.min.js"></script>
+  <script src="../js/d3.min.js"></script>
+  <script src="../js/function-plot.js"></script>
+  <script type="text/javascript" src="js/metodos.js"></script>
+  <script type="text/javascript" src="js/scripts.js"></script>
+  <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+</head>
+<body>
+
+<nav class="navbar  navbar-inverse">
+    <div class="container">
+      <div class="navbar-header"><a class="navbar-brand" href="../index.html">Início</a></div>
+      <div class="navbar-collapse collapse">
+        <ul class="nav navbar-nav">
+          <li><a href="../T2/index.html">Raizes</a></li>
+          <li><a href="../T3/index.html">Sistemas lineares</a></li>
+          <li><a href="../T4/index.html">Interpola&#231;&#227;o</a></li>
+          <li class="active"><a href="#">Ajuste de Curvas</a></li>
+          <li><a href="../T6/index.html">Integrais</a></li>
+          <li><a href="../T7/index.html">Sistemas não-lineares</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="../info.html">Informa&#231;ões</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+<div class="fixed">
+  <div id="plot"><h6>Aperte ESC para fechar ou clique em qualquer lugar fora deste.</h6></div>
+  <div id="options">
+    <h4 class="border-bot">Selecione a função: </h4>
+    <button class="btn btn-primary" id="mostra">Mostrar</button>
+    <h6>Apenas as funções previamente calculadas aparecerão aqui.</h6>
+    <h6>Aperte ESC para fechar ou clique em qualquer lugar fora deste.</h6>
+  </div>
+</div>
+
+<div class="container-fluid bg-1 text-center">
+  <h1 class="margin">Ajuste de Curvas</h1>
+  <p>Métodos numéricos utilizados para encontrar uma função que represente os pontos dados.</p>
+</div>
+
+<div class ="container">
+  <div class = "col-sm-3">
+    <div class = "border-bot">
+      <h3>Pontos</h3>
+    </div>
+    <label for="n_pontos">Nº de pontos: <input type="text" id="n_pontos" class="vals"></label>
+    <div class="col-sm-12">
+      <div class = "col-sm-2" >
+        <h4 class="border-bot">i</h4>
+        <div id="indice">
+          <label>0</label>
+          <label>1</label>
+          <label>2</label>
+        </div>
+      </div>
+
+      <div class = "col-sm-5">
+        <h4 class="border-bot">x[i]</h4>
+         <div id = "x">
+          <input type="text" class="cell" name="x0">
+          <input type="text" class="cell" name="x1">
+          <input type="text" class="cell" name="x2">
+        </div>
+      </div>
+      
+      <div class = "col-sm-5">
+        <h4 class="border-bot">f(x[i])</h4>
+        <div id="fx">
+          <input type="text" class="cell" name="fx0">
+          <input type="text" class="cell" name="fx1">
+          <input type="text" class="cell" name="fx2">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-sm-9">
+    <div class ="border-bot"><h3>Ajuste Polinomial</h3></div>
+    <div class="row" id = "poli">
+      <div class="col-sm-12">
+        <div class="col-sm-2"><h4 class="border-bot">Polinômio</h4></div>
+        <div class="col-sm-1"><h4 class="border-bot">N <input type="checkbox" name="graus"></h4></div>
+        <div class = "col-sm-9">
+          <div class="col-sm-2 a">
+            <h4 class="border-bot">a<sub>0</sub></h4>
+          </div>
+          <div class="col-sm-2 a">
+            <h4 class="border-bot">a<sub>1</sub></h4>
+          </div>
+          <div class="col-sm-2 a">
+            <h4 class="border-bot">a<sub>2</sub></h4>
+          </div>
+          <div class="col-sm-2 a">
+            <h4 class="border-bot">a<sub>3</sub></h4>
+          </div>
+          <div class="col-sm-2 a">
+            <h4 class="border-bot">a<sub>4</sub></h4>
+          </div>
+          <div class="col-sm-2 a">
+            <h4 class="border-bot">a<sub>5</sub></h4>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class = "border-bot"><h3>Outros Ajustes</h3></div>
+    <div class="row">
+      <div class="col-sm-12 border-bot">
+        <div class="col-sm-3">
+          <h4><input type="checkbox" name="outros" value="a + b*x"> `y = a*x + b`</h4>
+        </div>
+        <div class="col-sm-3">
+          <h4><input type="checkbox" name="outros" value="a*b^x"> `y = a*b^x`</h4>
+        </div>
+        <div class="col-sm-3">
+          <h4><input type="checkbox" name="outros" value="a*e^(b*x)"> `y = a*e^(b*x)`</h4>
+        </div>
+        <div class="col-sm-3">
+          <h4><input type="checkbox" name="outros" value="a*x^b"> `y = a*x^b`</h4>
+      </div>
+    </div>
+    <div class="col-sm-12" id="resultados"></div>
+    <button class="btn btn-primary" id="calcula">Calcular</button>
+    <button class="btn btn-primary" id="grafico">Gráfico</button>
+  </div>
+
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p class="text-muted">Projetado e desenvolvido por <a href="../info.html">Jo&#227;o Comini</a></p>     
+  </div>
+</footer>
+
+</body>
+</html>

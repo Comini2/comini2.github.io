@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Raízes</title>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <link rel="stylesheet" href="../css/bootstrap.min.css">
+  <link href="../css/montserrat.css" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="css/stylesheet.css">
+  <link href="https://fonts.googleapis.com/css?family=Oswald" rel="stylesheet">
+
+  <script src="../js/jquery.min.js"></script>
+  <script type="text/javascript" src="../js/math.js"></script>
+  <script src="../js/bootstrap.min.js"></script>
+  <script src="../js/d3.min.js"></script>
+  <script src="../js/function-plot.js"></script>
+  <script type="text/javascript" src="js/metodos.js"></script>
+  <script type="text/javascript" src="js/scripts.js"></script>
+  <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+</head>
+<body>
+<nav class="navbar  navbar-inverse">
+    <div class="container">
+      <div class="navbar-header"><a class="navbar-brand" href="../index.html">Início</a></div>
+      <div class="navbar-collapse collapse">
+        <ul class="nav navbar-nav">
+          <li class="active"><a href="#">Raizes</a></li>
+          <li><a href="../T3/index.html">Sistemas lineares</a></li>
+          <li><a href="../T4/index.html">Interpola&#231;&#227;o</a></li>
+          <li><a href="../T5/index.html">Ajuste de Curvas</a></li>
+          <li><a href="../T6/index.html">Integrais</a></li>
+          <li><a href="../T7/index.html">Sistemas não-lineares</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="../info.html">Informa&#231;ões</a></li>
+        </ul>
+      </div>
+    </div>
+</nav>
+
+<div class="container-fluid bg-1 text-center">
+  <h1 class="margin">Raízes</h1>
+  <p>Métodos numéricos utilizados para encontrar raízes de funções reais de uma variável</p>
+</div>
+
+<div class ="container">
+  <div class="row">
+    <div class = "col-sm-3">
+      <div class = "border-bot">
+        <h3>Métodos</h3>
+      </div>
+      <label><input type="radio" name="metodo" value="bis" checked="true">&nbsp;Método da Bissecção</label><br>
+      <label><input type="radio" name="metodo" value="cordas">&nbsp;Método das Cordas</label><br>
+      <label><input type="radio" name="metodo" value="newton">&nbsp;Método de Newton</label><br>
+      <label><input type="radio" name="metodo" value="cordasm">&nbsp;Cordas Modificado</label><br>
+      <label><input type="radio" name="metodo" value="newtonm">&nbsp;Newton Modificado</label><br>
+    </div>
+    <div class = "col-sm-9">
+      <div class ="border-bot">
+        <h3>Entrada</h3>
+      </div>
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="col-sm-12">
+            <label for="funcao">`f(x) = `<input type="text" id="funcao"></label><br>
+          </div>
+          <div class="col-sm-6">
+            <label for="a">`Intervalo [a, b] = [ `<input type="text" value="0" class="vals" id="a"></label>
+            <label for="b">`, `<input type="text" value="0" class="vals" id="b"></label>`]`
+            <label for="maxIt">`Iterações: `<input type="text" value="0" class="vals" id="maxIt"></label>
+          </div>
+          <div class="col-sm-6">
+            <label for="passo">`Passo(delta): `<input type="text" value="0" class="vals" id="passo"></label><br>
+            <label for="erro">`Erro(epsilon): `<input type="text" value="0" class="vals" id="erro"></label>
+          </div>
+        </div>
+      </div>
+      <button class="btn btn-primary" id="calcula">Calcular</button>
+    </div>
+  
+    <div class="col-sm-9">
+      <div class = "border-bot"><h3>Solução</h3></div>
+      <h6>*Algo errado aconteceu. O passo e o erro devem estar entre 1E-2 e 1E-6. Confira a função, tenha certeza que ela seja uma f(x).</h6>
+      <div id="func" class="col-sm-5"></div>
+      <div id="resultado" class="col-sm-7"></div>
+      <div id="plot"></div>
+    </div>
+
+  
+  </div>
+
+</div>
+
+<footer class="footer">
+<div class="container">
+  <p class="text-muted">Projetado e desenvolvido por <a href="../info.html">Jo&#227;o Comini</a>.</p>     
+</div>
+</footer>
+
+</body>
+</html>

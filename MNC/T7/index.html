@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Sistemas não-lineares</title>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link href="https://fonts.googleapis.com/css?family=Oswald" rel="stylesheet">
+  <link rel="stylesheet" href="../css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="css/stylesheet.css">
+  <link href="../css/montserrat.css" rel="stylesheet">
+
+  <script src="../js/jquery.min.js"></script>
+  <script src="../js/math.js" type="text/javascript" ></script>
+  <script src="../js/bootstrap.min.js"></script>
+  <script src="js/metodos.js" type="text/javascript"></script>
+  <script src="js/scripts.js" type="text/javascript"></script>
+  <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+</head>
+<body>
+
+<nav class="navbar  navbar-inverse">
+    <div class="container">
+      <div class="navbar-header"><a class="navbar-brand" href="../index.html">Início</a></div>
+      <div class="navbar-collapse collapse">
+        <ul class="nav navbar-nav">
+          <li><a href="../T2/index.html">Raizes</a></li>
+          <li><a href="../T3/index.html">Sistemas lineares</a></li>
+          <li><a href="../T4/index.html">Interpola&#231;&#227;o</a></li>
+          <li><a href="../T5/index.html">Ajuste de Curvas</a></li>
+          <li><a href="../T6/index.html">Integrais</a></li>
+          <li class="active"><a href="#">Sistemas não-lineares</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="../info.html">Informa&#231;ões</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+<div class="container-fluid bg-1 text-center">
+  <h1 class="margin">Sistemas não-lineares</h1>
+  <p>Métodos numéricos utilizados para calcular a solução de um sistema de n equações em sistemas não-lineares.</p>
+</div>
+
+<div class ="container">
+  <div class="row">
+    <div class = "col-sm-3">
+      <div class = "border-bot">
+        <h3>Métodos</h3>
+      </div>
+      <label><input type="radio" name="metodo" value="n" checked="true">&nbsp;Newton</label><br>
+      <label><input type="radio" name="metodo" value="nm">&nbsp;Newton Modificado</label><br>
+    </div>
+    <div class = "col-sm-9">
+      <div class ="border-bot">
+        <h3>Entrada</h3>
+      </div>
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="col-sm-1">
+             `X^0`         
+          </div>
+          <div class="col-sm-11">
+            <label for="n">Ordem(n)`: `<input type="text" value="2" id="n"></label>
+            <label for="it">Iterações`: `<input type="text" value="10" id="it"></label>
+            <label for="tol">Tolerancia`(epsilon): `<input type="text" value="0.001" id="tol"></label>
+          </div>
+          <div id="xini" class="col-sm-1">
+              <input class="vals" type="text" name="x1">
+              <input class="vals" type="text" name="x2">       
+          </div>
+          <div id="funcoes" class="col-sm-11">
+            <label for="f1" class="labelf">`f_0(X) = `<input class="inputf" type="text" name="f1"></label>
+            <label for="f2" class="labelf">`f_1(X) = `<input class="inputf" type="text" name="f2"></label>
+          </div>
+        </div>
+      </div>
+      <button class="btn btn-primary" id="calcula">Calcular</button>
+    </div>
+  
+    <div class="col-sm-9" style="float: right;">
+      <div class = "border-bot"><h3>Solução</h3></div>
+      <div id="resultado">`X = ((a), (b))`</div>
+    </div>
+  </div>
+
+</div>
+
+
+<footer class="footer">
+  <div class="container">
+    <p class="text-muted">Projetado e desenvolvido por <a href="../info.html">Jo&#227;o Comini</a></p>     
+  </div>
+</footer>
+
+</body>
+</html>
